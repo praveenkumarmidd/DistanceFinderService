@@ -9,7 +9,10 @@ package com.wcc.distance.finder.constant;
  */
 public enum DistanceFinderConstant {
     KM(" km"),
-    SUCCESS("Success");
+    SUCCESS("Success"),
+    SOURCE_POSTCODE_NOT_FOUND_ERROR("Source PostCode Record not Found"),
+    DESTINATIONS_POSTCODE_NOT_FOUND_ERROR("Destination PostCode Record not Found");
+
     private final String constants;
 
     DistanceFinderConstant(final String constants) {

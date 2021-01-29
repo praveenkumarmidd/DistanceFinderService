@@ -41,10 +41,10 @@ public class DistanceCalculatorServiceImpl implements DistanceCalculatorService 
         List<DistanceFinderEntity> distanceFinderEntitiesList = getLatitudeAndLongitudeInfo(sourcePostCode, destinationPostCode);
         Optional<DistanceFinderEntity> optionalSourceDistanceFinderEntity = distanceFinderEntitiesList.stream()
                 .filter(postCodeResponse -> postCodeResponse.getPostCode().equalsIgnoreCase(sourcePostCode)).findAny();
-        DistanceFinderEntity sourcePostCodeEntityResponse = optionalSourceDistanceFinderEntity.orElseThrow(() -> new DistanceFinderCustomException("SourcePostCode Record not Found"));
+        DistanceFinderEntity sourcePostCodeEntityResponse = optionalSourceDistanceFinderEntity.orElseThrow(() -> new DistanceFinderCustomException(DistanceFinderConstant.SOURCE_POSTCODE_NOT_FOUND_ERROR.getValue()));
         Optional<DistanceFinderEntity> optionalDestinationDistanceFinderEntity = distanceFinderEntitiesList.stream()
                 .filter(postCodeResponse -> postCodeResponse.getPostCode().equalsIgnoreCase(destinationPostCode)).findAny();
-        DistanceFinderEntity destinationPostCodeEntityResponse = optionalDestinationDistanceFinderEntity.orElseThrow(() -> new DistanceFinderCustomException("DestinationPostCode Record not Found"));
+        DistanceFinderEntity destinationPostCodeEntityResponse = optionalDestinationDistanceFinderEntity.orElseThrow(() -> new DistanceFinderCustomException(DistanceFinderConstant.DESTINATIONS_POSTCODE_NOT_FOUND_ERROR.getValue()));
         double calculatedDistance = DistanceFinderUtility.calculateDistance(sourcePostCodeEntityResponse, destinationPostCodeEntityResponse);
         distanceCalculator.setStatus(DistanceFinderConstant.SUCCESS.getValue());
         distanceCalculator.setDistance(String.valueOf(calculatedDistance).concat(DistanceFinderConstant.KM.getValue()));

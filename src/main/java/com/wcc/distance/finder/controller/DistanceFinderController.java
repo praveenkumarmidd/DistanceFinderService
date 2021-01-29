@@ -34,6 +34,13 @@ public class DistanceFinderController {
     @Autowired
     PostCodeReformService postCodeReformService;
 
+    /**
+     * Distance Calculator operations to find the distance between two postcodes
+     * @param sourcePostCode source postcode
+     * @param destinationPostCode destincation postcode
+     * @return Calculated distance response km units
+     * @throws DistanceFinderCustomException throw source postcode or destination postcode null or empty
+     */
     @ApiOperation(value = "Calculate the distance between two postcodes")
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Successfully calculated the distance between two services"),
             @ApiResponse(code = 400, message = "Invalid Request params "),
@@ -57,8 +64,9 @@ public class DistanceFinderController {
     }
 
     /**
-     * @param location
-     * @return
+     * Postcode Reform Operation to update/create latitude longitude
+     * @param location Request post code info
+     * @return status response
      */
     @ApiOperation(value = "Update/Create the Postcode for given latitude and longitude")
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Successfully Update/Create Latitude and Longitue for the given postcode"),

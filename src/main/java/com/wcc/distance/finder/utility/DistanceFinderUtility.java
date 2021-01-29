@@ -2,8 +2,6 @@ package com.wcc.distance.finder.utility;
 
 import com.wcc.distance.finder.repository.entitiy.DistanceFinderEntity;
 
-import java.util.Optional;
-
 /**
  * DistanceFinderUtility Service utility class
  *
@@ -14,19 +12,22 @@ import java.util.Optional;
 public class DistanceFinderUtility {
     private final static double EARTH_RADIUS = 6371;
 
+    /**
+     * This method calculates the distance between two postcodes
+     * @param sourcePostCodeSet
+     * @param destinationPostCodeSet
+     * @return
+     */
     public static double calculateDistance(DistanceFinderEntity sourcePostCodeSet, DistanceFinderEntity destinationPostCodeSet) {
         // Using Haversine formula! See Wikipedia;
-        if (Optional.ofNullable(sourcePostCodeSet).isPresent() && Optional.ofNullable(destinationPostCodeSet).isPresent()) {
-            double lon1Radians = Math.toRadians(sourcePostCodeSet.getLongitude());
-            double lon2Radians = Math.toRadians(destinationPostCodeSet.getLongitude());
-            double lat1Radians = Math.toRadians(sourcePostCodeSet.getLatitude());
-            double lat2Radians = Math.toRadians(destinationPostCodeSet.getLatitude());
-            double a = haversine(lat1Radians, lat2Radians)
-                    + Math.cos(lat1Radians) * Math.cos(lat2Radians) * haversine(lon1Radians, lon2Radians);
-            double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-            return (EARTH_RADIUS * c);
-        }
-        return 0;
+        double lon1Radians = Math.toRadians(sourcePostCodeSet.getLongitude());
+        double lon2Radians = Math.toRadians(destinationPostCodeSet.getLongitude());
+        double lat1Radians = Math.toRadians(sourcePostCodeSet.getLatitude());
+        double lat2Radians = Math.toRadians(destinationPostCodeSet.getLatitude());
+        double a = haversine(lat1Radians, lat2Radians)
+                + Math.cos(lat1Radians) * Math.cos(lat2Radians) * haversine(lon1Radians, lon2Radians);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return (EARTH_RADIUS * c);
     }
 
     private static double haversine(double deg1, double deg2) {
